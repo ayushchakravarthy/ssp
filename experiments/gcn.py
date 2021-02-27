@@ -21,6 +21,7 @@ parser.add_argument('--logger', type=str, default=None)
 parser.add_argument('--optimizer', type=str, default='Adam')
 parser.add_argument('--preconditioner', type=str, default=None)
 parser.add_argument('--momentum', type=float, default=0.9)
+parser.add_argument('--clipping', type=float, default=1e-0)
 parser.add_argument('--eps', type=float, default=0.01)
 parser.add_argument('--update_freq', type=int, default=50)
 parser.add_argument('--gamma', type=float, default=None)
@@ -102,6 +103,7 @@ kwargs = {
     'early_stopping': args.early_stopping, 
     'logger': args.logger, 
     'momentum': args.momentum,
+    'clipping': args.clipping,
     'eps': args.eps,
     'update_freq': args.update_freq,
     'gamma': args.gamma,
