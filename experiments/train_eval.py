@@ -9,6 +9,7 @@ from torch import tensor
 from torch.utils.tensorboard import SummaryWriter
 import utils as ut
 import psgd
+from nfnets.agc import AGC
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
@@ -26,6 +27,7 @@ def run(
     early_stopping,  
     logger, 
     momentum,
+    clip,
     eps,
     update_freq,
     gamma,
@@ -73,6 +75,17 @@ def run(
                 model.parameters(), 
                 lr=lr, 
                 momentum=momentum,
+            )
+        elif str_optimizer == 'AGC':
+            optim = torch.optim.SGD(
+                model.parameters(),
+                lr=lr,
+                momentum=momentum,
+            )
+            optimizer = AGC(
+                model.parameters(),
+                optim,
+                clipping=clip,
             )
 
         if torch.cuda.is_available():
